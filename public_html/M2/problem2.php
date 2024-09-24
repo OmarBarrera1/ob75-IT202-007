@@ -11,7 +11,6 @@ function getTotal($arr) {
     //TODO do adding here
     
     //ob75 09-23-2024
-
     echo "Summed values: " . array_sum($arr) . "<br>"; 
 
     //TODO do rounding stuff here (round to two decimals i.e., 0.10, 0.01, 0.00)
