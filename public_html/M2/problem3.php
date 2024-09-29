@@ -13,6 +13,7 @@ function bePositive($arr) {
     //TODO Take each value of the $arr, convert it to positive, and set it to the same index in the $output array but with the original data type (i.e., if the source was a string the output slot value should be a string)
     
     //ob75 09-23-2024
+    //created a for loop to check data types of int, double, and string and then convert them to postive with abs and put them into output
     for($i = 0; $i < sizeof($arr); $i++)
     {
         if(is_int($arr[$i]))
@@ -23,11 +24,11 @@ function bePositive($arr) {
         {
         $output[$i] = abs($arr[$i]);
         }
-        else if(is_string($arr[$i]))
+        else if(is_string($arr[$i]))    //checks for string
         {
-        $stringToInt = (int)$arr[$i];
-        $intToString = (string)(abs($stringToInt));
-        $output[$i] = $intToString;
+        $stringToInt = (int)$arr[$i];   //sets string to be int and puts it into stringToInt var
+        $intToString = (string)(abs($stringToInt));     //uses abs to make postive and then convert back to string
+        $output[$i] = $intToString;     //takes the new string value and sets it to output
         
         }
     }
