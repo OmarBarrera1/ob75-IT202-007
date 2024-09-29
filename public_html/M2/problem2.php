@@ -11,10 +11,10 @@ function getTotal($arr) {
     //TODO do adding here
     
     //ob75 09-23-2024
-    echo "Summed values: " . array_sum($arr) . "<br>"; 
+    echo "Summed values: " . array_sum($arr) . "<br>";      //sums up array values with array_sum
 
-    //TODO do rounding stuff here (round to two decimals i.e., 0.10, 0.01, 0.00)
-    $total = number_format(array_sum($arr),2);
+    //TODO do rounding stuff here (round to two decimals i.e., 0.10, 0.01, 0.00)    
+    $total = number_format(array_sum($arr),2);      //creates 2 decimal spaces for rounding the sum value and then sets it to total
     echo "Rounded Values: " . $total . "<br>";
 
 
