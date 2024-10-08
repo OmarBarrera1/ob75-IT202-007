@@ -6,4 +6,5 @@ CREATE TABLE IF NOT EXISTS `Users` (
     `modified` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`),
     UNIQUE (`email`)
+    --Adding to ProjectSetup branch
 )
