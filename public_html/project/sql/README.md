@@ -1,6 +1,7 @@
 # SQL Structure Loader
 ## Purpose: Makes migration easy
-### Just have your structural/setup .sql files here and run the init_db.php in the browser
+### Just have your structural/setup .sql files here and run the init_db.php in the browser.
+
 
 - Usage
  - Make sure you prefix the files so they sort in the exact order they should execute
