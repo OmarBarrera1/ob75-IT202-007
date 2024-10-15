@@ -27,7 +27,7 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
 
 $hasError = false;
 if (empty($email)) {
-    echo "Email must not be empty";
+    flash("Email must not be empty");
     $hasError = true;
 }
 
@@ -44,17 +44,17 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $email = sanitize_email($email);
     //validate
     if(!is_valid_email($email)){
-        echo "Invalid email address";
+        flash("Invalid email address");
     }
 
 if (empty($password)) {
-    echo "Password must not be empty";
+    flash("Password must not be empty");
     $hasError = true;
 }
 
 
 if (strlen($password) < 8) {
-    echo "Password too short";
+   flash("Password too short");
     $hasError = true;
 }
 
@@ -77,17 +77,17 @@ if (!$hasError) {
                     die(header("Location: home.php"));
 
                 } else {
-                    echo "Invalid password";
+                    flash("Invalid password");
                 }
             } else {
-                echo "Email not found";
+                flash("Email not found");
             }
         }
     } catch (Exception $e) {
-        echo "An error occurred: " . $e->getMessage();
+        flash("An error occurred: " . $e->getMessage());
     }
 }
 
     }
-
+    require(__DIR__."/../../partials/flash.php");
 ?>
