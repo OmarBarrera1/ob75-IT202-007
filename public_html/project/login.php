@@ -31,12 +31,21 @@ if (empty($email)) {
     $hasError = true;
 }
 
-// Sanitize and validate email
-$email = filter_var($email, FILTER_SANITIZE_EMAIL);
+// Sanitize 
+/*$email = filter_var($email, FILTER_SANITIZE_EMAIL);
+// Validate
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     echo "Invalid email address";
     $hasError = true;
 }
+*/
+    //sanitize
+    //$email = filter_var($email, FILTER_SANITIZE_EMAIL);
+    $email = sanitize_email($email);
+    //validate
+    if(!is_valid_email($email)){
+        echo "Invalid email address";
+    }
 
 if (empty($password)) {
     echo "Password must not be empty";
