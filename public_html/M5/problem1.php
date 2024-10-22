@@ -27,7 +27,14 @@ function processBirds($birds) {
     // TODO add logic here to create a new array with only name, color, and region
     $subset = []; // result array
     // Start edits
-    
+    foreach($birds as $key){    //loop through birds array with keys
+        $subset[] = [   //subset takes in all the specific keys of name, color, and region
+        'name' => $key['name'], 
+        'color' => $key['color'],
+        'region' => $key['region']
+        ];
+        
+    }
     // End edits
     echo "<pre>" . var_export($subset, true) . "</pre>";
     

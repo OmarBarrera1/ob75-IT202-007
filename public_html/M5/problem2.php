@@ -30,6 +30,25 @@ function processCars($cars) {
     $classic_age = 25; // don't change this value
     // Start edits
    
+    $currentYear = date("Y");    //calculated currentYear with date format
+    $isClassic = false;         //set to boolean for isClassic to show true or false
+    foreach($cars as $key){
+        $age = $currentYear - $key['year'];     //age is done by substracting currentYear with year of car
+        if($age >= $classic_age ){      //if age is equal to or greater than classic age then it is true else false
+            $isClassic = true;
+        }else{
+            $isClassic = false;
+        }
+        
+        $newArray = $key;   //new array variable created to take in keys 
+        $newArray['isClassic'] = $isClassic;   //isClassic is fed into new array
+        $newArray['age'] = $age;    //age is added onto new array
+
+        $processedCars[] = $newArray;   //new array is then put into original processed cars array 
+       
+        
+    }
+   
     // End edits
     echo "<pre>" . var_export($processedCars, true) . "</pre>";
     

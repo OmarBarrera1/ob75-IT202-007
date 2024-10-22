@@ -49,7 +49,17 @@ function joinArrays($users, $activities) {
     // TODO add logic here to join the arrays on userId
     $joined = []; // result array
     // Start edits
-    
+    $temp = [];     //temporary array to take in id key 
+    foreach($users as $idKey){  //loops through users array first getting id key and giving it to the temporary array
+        $temp[$idKey['userId']] = $idKey;   //id keys are given into temp array
+    }
+
+    foreach($activities as $idKey){     //loops through activities array getting id keys 
+        if(isset($temp[$idKey['userId']])){     //if the temp array is set with the id key of userId
+            $joined[] = array_merge($temp[$idKey['userId']], $idKey); 
+                //array merge of temp with the id key from users is done to match with id key of activies side
+        }
+    }
 
     // End edits
     echo "<pre>" . var_export($joined, true) . "</pre>";
