@@ -49,6 +49,8 @@ function joinArrays($users, $activities) {
     // TODO add logic here to join the arrays on userId
     $joined = []; // result array
     // Start edits
+
+    //UCID - ob75, October 21, 2024a'
     $temp = [];     //temporary array to take in id key 
     foreach($users as $idKey){  //loops through users array first getting id key and giving it to the temporary array
         $temp[$idKey['userId']] = $idKey;   //id keys are given into temp array

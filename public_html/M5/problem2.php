@@ -29,7 +29,8 @@ function processCars($cars) {
     $processedCars = []; // result array
     $classic_age = 25; // don't change this value
     // Start edits
-   
+
+    //UCID - ob75, October 22, 2024
     $currentYear = date("Y");    //calculated currentYear with date format
     $isClassic = false;         //set to boolean for isClassic to show true or false
     foreach($cars as $key){
