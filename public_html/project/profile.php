@@ -23,10 +23,12 @@ if (isset($_POST["save"])) {
                 flash("The chosen " . $matches[1] . " is not available.", "warning");
             } else {
                 //TODO come up with a nice error message
+                flash("An error has occured", "danger");
                 echo "<pre>" . var_export($e->errorInfo, true) . "</pre>";
             }
         } else {
             //TODO come up with a nice error message
+            flash("An error has occured", "danger");
             echo "<pre>" . var_export($e->errorInfo, true) . "</pre>";
         }
     }
