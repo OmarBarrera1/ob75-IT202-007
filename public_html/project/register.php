@@ -66,6 +66,8 @@ reset_session();
 </script>
 <?php
 //TODO 2: add PHP Code
+//UCID - ob75 - 11/13/2024
+
 if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirm"])) {
     $email = se($_POST, "email", "", false);
     $password = se($_POST, "password", "", false);
