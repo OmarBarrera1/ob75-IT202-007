@@ -1,6 +1,8 @@
 <?php
 require_once(__DIR__ . "/../../partials/nav.php");
 ?>
+
+<!-- UCID - ob75 - 11/13/2024 -->
 <form onsubmit="return validate(this)" method="POST">
     <div>
         <label for="email">Email/Username</label>
@@ -17,7 +19,30 @@ require_once(__DIR__ . "/../../partials/nav.php");
         //TODO 1: implement JavaScript validation
         //ensure it returns false for an error and true for success
 
-        return true;
+        //UCID - ob75 - 11/13/2024
+        const emailRegex = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})*$/;
+        const passwdRegex = /^.{8,}$/;
+        const userNameRegex = /^[a-z0-9_-]{3,16}$/;
+        let isValid = true;
+
+
+        if ((form.email.value).includes('@')) {
+            if (!emailRegex.test(form.email.value) || form.email.value == "") {
+                flash("[JS] Invalid email format");
+                isValid = false;
+            }
+        } else {
+            if (!userNameRegex.test(form.email.value) || form.email.value == "") {
+                flash("[JS] Invalid username format");
+                isValid = false;
+            }
+        }
+        if (!passwdRegex.test(form.password.value) || form.password.value == "") {
+            flash("[JS] Invalid password format");
+            isValid = false;
+        }
+
+        return isValid;
     }
 </script>
 <?php
@@ -34,7 +59,7 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
     }
     //sanitize
     //$email = filter_var($email, FILTER_SANITIZE_EMAIL);
-   
+
     //validate
     /*if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         flash("Please enter a valid email <br>");

@@ -26,8 +26,42 @@ reset_session();
     function validate(form) {
         //TODO 1: implement JavaScript validation
         //ensure it returns false for an error and true for success
+        
+        //UCID - ob75 - 11/13/2024
+        let isValid = true;
+        const emailRegex = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})*$/;
+        const passwdRegex = /^.{8,}$/;
+        const userNameRegex = /^[a-z0-9_-]{3,16}$/;
 
-        return true;
+        if (!emailRegex.test(form.email.value) || form.email.value == "") {
+            flash("[JS] Invalid email format");
+            isValid = false;
+        }
+
+
+        if (!userNameRegex.test(form.username.value) || form.username.value == "") {
+            flash("[JS] Invalid username format");
+            isValid = false;
+        }
+
+      
+        if (!passwdRegex.test(form.password.value) || form.password.value == "") {
+            flash("[JS] Invalid password format");
+            isValid = false;
+        }
+        
+        if(!passwdRegex.test(form.confirm.value) || form.confirm.value == ""){
+            flash("[JS] Invalid confirm password format");
+            isValid = false;
+        }
+
+
+        if (form.password.value !== form.confirm.value){
+            flash("[JS] Invalid password match");
+            isValid = false;
+        }
+
+        return isValid;
     }
 </script>
 <?php
