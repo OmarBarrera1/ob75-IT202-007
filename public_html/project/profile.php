@@ -1,8 +1,7 @@
 <?php
+//UCID - ob75 - 11/13/2024
 require_once(__DIR__ . "/../../partials/nav.php");
-if (!is_logged_in()) {
-    die(header("Location: login.php"));
-}
+is_logged_in(true);
 ?>
 <?php
 if (isset($_POST["save"])) {
@@ -23,12 +22,12 @@ if (isset($_POST["save"])) {
                 flash("The chosen " . $matches[1] . " is not available.", "warning");
             } else {
                 //TODO come up with a nice error message
-                flash("An error has occured", "danger");
+                flash("An unhandled error occured", "danger");
                 echo "<pre>" . var_export($e->errorInfo, true) . "</pre>";
             }
         } else {
             //TODO come up with a nice error message
-            flash("An error has occured", "danger");
+            flash("An unhandled error occured", "danger");
             echo "<pre>" . var_export($e->errorInfo, true) . "</pre>";
         }
     }
@@ -122,26 +121,47 @@ $username = get_username();
         let isValid = true;
         //TODO add other client side validation....
 
-        //example of using flash via javascript
-        //find the flash container, create a new element, appendChild
-        if (pw !== con) {
-            //find the container
-            let flash = document.getElementById("flash");
-            //create a div (or whatever wrapper we want)
-            let outerDiv = document.createElement("div");
-            outerDiv.className = "row justify-content-center";
-            let innerDiv = document.createElement("div");
+        //UCID - ob75 - 11/13/2024
+        const emailRegex = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})*$/;
+        const passwdRegex = /^.{8,}$/;
+        const userNameRegex = /^[a-z0-9_-]{3,16}$/;
 
-            //apply the CSS (these are bootstrap classes which we'll learn later)
-            innerDiv.className = "alert alert-warning";
-            //set the content
-            innerDiv.innerText = "Password and Confirm password must match";
-
-            outerDiv.appendChild(innerDiv);
-            //add the element to the DOM (if we don't it merely exists in memory)
-            flash.appendChild(outerDiv);
+        if (!emailRegex.test(form.email.value) || form.email.value == "") {
+            flash("[JS] Invalid email format");
             isValid = false;
         }
+
+
+        if (!userNameRegex.test(form.username.value) || form.username.value == "") {
+            flash("[JS] Invalid username format");
+            isValid = false;
+        }
+
+        if ((form.currentPassword.value && pw && con) !== "") {
+            if (!passwdRegex.test(form.currentPassword.value)) {
+                flash("[JS] Invalid Current password format");
+                isValid = false;
+            }
+
+            if (!passwdRegex.test(pw)) {
+                flash("[JS] Invalid New password format");
+                isValid = false;
+            }
+
+            if(!passwdRegex.test(con)){
+                flash("[JS] Invalid Confirm password format");
+                isValid = false;
+            }
+
+            //example of using flash via javascript
+            //find the flash container, create a new element, appendChild
+            if (pw !== con) {
+                flash("Password and Confirm password must match", "warning");
+                isValid = false;
+            }
+        } 
+
+
         return isValid;
     }
 </script>
