@@ -1,6 +1,11 @@
 <?php
-require_once(__DIR__ . "/../../partials/nav.php");
+require(__DIR__ . "/../../../partials/nav.php");
 // UCID - ob75 - 12/04/2024
+
+if (!has_role("Admin")) {
+    flash("You don't have permission to view this page", "warning");
+    die(header("Location: $BASE_PATH" . "/home.php"));
+}
 
 //search before query
 $artists = se($_GET, "query_name", "", false);
@@ -71,6 +76,7 @@ $table = [
     "data" => $results,
     //"artists" => "query_name",
     "ignored_columns" => $ignore_columns,
+    "delete_url" => get_url("delete_artists.php"),
     //"view_url" => get_url("view_artists.php")
 ];
 error_log("Artists: " . var_export($results, true));
@@ -109,5 +115,5 @@ error_log("Artists: " . var_export($results, true));
 
 <?php
 //note we need to go up 1 more directory
-require_once(__DIR__ . "/../../partials/flash.php");
+require_once(__DIR__ . "/../../../partials/flash.php");
 ?>

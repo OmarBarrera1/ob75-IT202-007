@@ -40,6 +40,7 @@ session_start();
                 <?php if (is_logged_in()) : ?>
                     <li class="nav-item"><a class="nav-link" href="<?php echo get_url('home.php'); ?>">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?php echo get_url('profile.php'); ?>">Profile</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?php echo get_url('search_artists.php'); ?>">List Artists</a></li>
                 <?php endif; ?>
                 <?php if (!is_logged_in()) : ?>
                     <li class="nav-item"><a class="nav-link" href="<?php echo get_url('login.php'); ?>">Login</a></li>
@@ -64,7 +65,7 @@ session_start();
                         </a>
                         <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="<?php echo get_url('admin/create_artist.php'); ?>">Create Artist Name</a></li>
-
+                        <li><a class="dropdown-item" href="<?php echo get_url('admin/list_artists.php'); ?>">Delete or Edit Artist</a></li>
                     </ul>
                     </li>
                 <?php endif; ?>
