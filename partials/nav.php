@@ -45,5 +45,12 @@ session_start();
         <?php if (is_logged_in()) : ?>
             <li><a href="<?php echo get_url('logout.php'); ?>">Logout</a></li>
         <?php endif; ?>
+        <?php if (has_role("Admin")) : ?>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="<?php echo get_url('admin/create_artist.php'); ?>">Create Artist Name</a></li>
+
+            </ul>
+            </li>
+        <?php endif; ?>
     </ul>
 </nav>
