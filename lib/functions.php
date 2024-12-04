@@ -29,4 +29,8 @@ require(__DIR__ . "/api_helper.php");
 require(__DIR__ . "/db_helpers.php");
 
 require(__DIR__ . "/render_functions.php");
+
+//UCID - ob75 - 12/03/2024
+require(__DIR__ . "/shazam_api.php");
+
 ?>
