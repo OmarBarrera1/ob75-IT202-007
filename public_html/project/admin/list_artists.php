@@ -74,10 +74,12 @@ try {
 $ignore_columns = ["id", "created", "modified", "is_api"];
 $table = [
     "data" => $results,
-    //"artists" => "query_name",
     "ignored_columns" => $ignore_columns,
-    "delete_url" => get_url("delete_artists.php"),
-    //"view_url" => get_url("view_artists.php")
+    //added delete_url to delete records
+    "delete_url" => get_url("admin/delete_artists.php"),
+    //added edit_url to edit records
+    "edit_url" => get_url("admin/edit_artist.php"),
+    
 ];
 error_log("Artists: " . var_export($results, true));
 ?>
