@@ -76,11 +76,19 @@ $table = [
     "data" => $results,
     "ignored_columns" => $ignore_columns,
     //added delete_url to delete records
-    "delete_url" => get_url("admin/delete_artists.php"),
+    //"delete_url" => get_url("admin/delete_artists.php"),
     //added edit_url to edit records
-    "edit_url" => get_url("admin/edit_artist.php"),
+    //"edit_url" => get_url("admin/edit_artists.php"),
+    //added view_url to edit records
+    "view_url" => get_url("view_artists.php"),
     
 ];
+
+if(has_role("Admin")){
+    $table["edit_url"] = get_url("admin/edit_artist.php");
+    $table["delete_url"] = get_url("admin/delete_artists.php");
+}
+
 error_log("Artists: " . var_export($results, true));
 ?>
 

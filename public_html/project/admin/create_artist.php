@@ -28,7 +28,7 @@ if (isset($_POST["action"])) {
             }
         }
         }else if ($action === "create") {
-            $necessaryColumns = ["query_name", "weburl"];
+            $necessaryColumns = ["query_name", "weburl", "note"];
             $artists = $_POST; 
             
            
@@ -96,7 +96,7 @@ if (isset($_POST["action"])) {
         
             <?php render_input(["type" => "text", "name" => "query_name", "placeholder" => "Artist Name", "label" => "Artist Name", "rules" => ["required" => "required"]]); ?>
             <?php render_input(["type" => "text", "name" => "weburl", "placeholder" => "WebURL", "label" => "webURL", "rules" => ["required" => "required"]]); ?>
-
+            <?php render_input(["type" => "text", "name" => "note", "placeholder" => "Note", "label" => "Note"]); ?>
             <?php render_input(["type" => "hidden", "name" => "action", "value" => "create"]); ?>
             <?php render_button(["type" => "submit", "text" => "Create"]); ?>
         </form>

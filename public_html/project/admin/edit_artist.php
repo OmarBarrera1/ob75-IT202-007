@@ -14,7 +14,7 @@ if (!has_role("Admin")) {
 $id = se($_GET, "id", -1, false);
 if (isset($_POST["query_name"])) {
     foreach ($_POST as $k => $v) {
-        if (!in_array($k, ["query_name", "weburl"])) {
+        if (!in_array($k, ["query_name", "weburl", "note"])) {
             unset($_POST[$k]);
         }
         $artName = $_POST;
@@ -54,7 +54,7 @@ $artist = [];
 if ($id > -1) {
     //fetch
     $db = getDB();
-    $query = "SELECT id, query_name, weburl FROM `Shazam-Artists` WHERE id = :id";
+    $query = "SELECT id, query_name, weburl, note FROM `Shazam-Artists` WHERE id = :id";
     try {
         $stmt = $db->prepare($query);
         $stmt->execute([":id" => $id]);
@@ -74,6 +74,7 @@ if ($artist) {
     $form = [
         ["type" => "text", "name" => "query_name", "placeholder" => "Artist Name", "label" => "Artist Name", "rules" => ["required" => "required"]],
         ["type" => "text", "name" => "weburl", "placeholder" => "Web URL", "label" => "Web URL", "rules" => ["required" => "required"]],
+        ["type" => "text", "name" => "note", "placeholder" => "Note", "label" => "Note", "rules" => ["required" => "required"]],
     ];
     $keys = array_keys($artist);
 
