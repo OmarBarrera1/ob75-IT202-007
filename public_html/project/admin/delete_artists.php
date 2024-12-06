@@ -1,11 +1,12 @@
 <?php
-require(__DIR__ . "/../../lib/functions.php");
+require(__DIR__ . "/../../../lib/functions.php");
+session_start();
 
 if (!has_role("Admin")) {
     flash("You don't have permission to view this page", "warning");
     die(header("Location: $BASE_PATH" . "/home.php"));
 }
-session_start();
+
 //UCID - ob75 - 12/04/2024
 $id = se($_GET, "id", -1, false);
 
@@ -29,6 +30,6 @@ if ($id > 0) {
     }
 }
 unset($_GET["id"]);
-$loc = get_url("search_artists.php")."?" . http_build_query($_GET);
+$loc = get_url("admin/list_artists.php")."?" . http_build_query($_GET);
 error_log("Location: $loc");
 die(header("Location: $loc"));

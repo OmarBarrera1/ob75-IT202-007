@@ -71,7 +71,7 @@ $table = [
     "data" => $results,
     //"artists" => "query_name",
     "ignored_columns" => $ignore_columns,
-    //"view_url" => get_url("view_artists.php")
+    "view_url" => get_url("view_artists.php")
 ];
 error_log("Artists: " . var_export($results, true));
 ?>
