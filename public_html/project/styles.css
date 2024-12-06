@@ -21,3 +21,9 @@ body{
     color: rgb(10, 1, 243);
 
 }
+.nav-link {
+    color: black !important;
+}
+th {
+    text-transform: capitalize;
+}
