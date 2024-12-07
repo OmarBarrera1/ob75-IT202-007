@@ -47,7 +47,7 @@ if (isset($_POST["action"])) {
         flash("You must provide a name", "warning");
         
      }
-
+     //UCID - ob75 - 12/06/2024
     try {
         $result = insert("Shazam-Artists", $artists, ["update_duplicate" => true]);
 
@@ -72,6 +72,7 @@ if (isset($_POST["action"])) {
     }
 }
 //TODO handle manual create stock
+//UCID - ob75 - 12/06/2024
 ?>
 <div class="container-fluid">
     <h3>Create or Fetch Artists</h3>

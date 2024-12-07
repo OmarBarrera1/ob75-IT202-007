@@ -96,8 +96,12 @@ error_log("Artists: " . var_export($results, true));
                     <?php render_input(["name" => "order", "label" => "Order", "value" => $order, "type" => "select", "options" => [["asc" => "asc"], ["desc" => "desc"]]]); ?>
                 </div>
                 <div class="col">
+                    <?php render_input(["type" => "number", "name" => "limit", "label" => "Limit", "value" => "10", "include_margin" => false])?>
+                </div>
+                <div class="col">
                     <?php render_button(["text" => "Search", "type" => "submit"]); ?>
                 </div>
+                
                 <div class="col">
                     <a href="?" class="btn btn-secondary">Reset</a>
                 </div>
