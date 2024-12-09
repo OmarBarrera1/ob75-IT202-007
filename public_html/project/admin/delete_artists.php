@@ -26,7 +26,7 @@ if ($id > 0) {
 
     } catch (PDOException $e) {
         error_log("Error deleting: " . var_export($e, true));
-        flash("There was an error deleting the record", "danger");
+        flash("There was an error deleting the record", "danger"); //fixed Delete flash to appear
     }
 }else{
     flash("There was an error deleting the record", "danger");
