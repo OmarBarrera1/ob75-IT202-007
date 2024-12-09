@@ -28,6 +28,8 @@ if ($id > 0) {
         error_log("Error deleting: " . var_export($e, true));
         flash("There was an error deleting the record", "danger");
     }
+}else{
+    flash("There was an error deleting the record", "danger");
 }
 unset($_GET["id"]);
 $loc = get_url("admin/list_artists.php")."?" . http_build_query($_GET);
