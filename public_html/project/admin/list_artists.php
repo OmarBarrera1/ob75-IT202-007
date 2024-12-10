@@ -25,7 +25,7 @@ if (!in_array($column, $columns)) {
 if (!in_array($order, ["asc", "desc"])) {
     $order = "asc";
 }
-
+//UCID - ob75 - 12/04/2024
 $sql = "SELECT id, query_name, weburl FROM `Shazam-Artists` WHERE 1=1";
 $params = [];
 
@@ -71,6 +71,8 @@ try {
 
 //error_log("Artists: " . var_export($artists, true));
 //error_log("webUrl: " . var_export($webURL, true));
+
+//UCID - ob75 - 12/04/2024
 $ignore_columns = ["id", "created", "modified", "is_api"];
 $table = [
     "data" => $results,
@@ -90,6 +92,7 @@ if(has_role("Admin")){
 }
 
 error_log("Artists: " . var_export($results, true));
+//UCID - ob75 - 12/04/2024
 ?>
 
 <div class="container-fluid">

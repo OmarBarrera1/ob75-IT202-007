@@ -70,6 +70,7 @@ if ($id > -1) {
     flash("Invalid id passed", "danger");
     die(header("Location:" . get_url("admin/list_artists.php")));
 }
+//UCID - ob75 - 12/04/2024
 if ($artist) {
     $form = [
         ["type" => "text", "name" => "query_name", "placeholder" => "Artist Name", "label" => "Artist Name", "rules" => ["required" => "required"]],

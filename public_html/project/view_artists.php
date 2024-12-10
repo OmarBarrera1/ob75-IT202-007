@@ -35,6 +35,7 @@ foreach ($artist as $key => $value) {
     }
 }
 
+//UCID - ob75 - 12/05/2024
 //TODO handle manual create stock
 ?>
 <div class="container-fluid">
