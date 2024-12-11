@@ -116,7 +116,7 @@ $table = [
     "ignored_columns" => $ignore_columns,
     "view_url" => get_url("view_artists.php"),
 ];
-//got rid of delete button that deletes from record.
+
 error_log("Artists: " . var_export($results, true));
 ?>
 
