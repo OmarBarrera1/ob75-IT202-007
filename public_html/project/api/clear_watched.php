@@ -2,6 +2,7 @@
 
 session_start();
 require(__DIR__ . "/../../../lib/functions.php");
+//UCID - ob75 - 12/10/2024
 
 $user_id = se($_GET, "user_id", get_user_id(), false);
 if(!has_role("Admin") && $user_id != get_user_id()){
