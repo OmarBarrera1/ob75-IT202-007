@@ -27,10 +27,11 @@ $assoc_check = "";
 // Append the user_id for a join if the user is logged in
 if (is_logged_in()) {
     // return a 1 or 0 based on whether or not this guide is watched by this user
-    $assoc_check = " (SELECT IFNULL(count(1), 0) FROM `UserArtists` WHERE user_id = :user_id and artist_id = artist_id LIMIT 1) as is_watched,";
+    $assoc_check = " (SELECT IFNULL(count(1), 0) FROM `UserArtists` 
+    WHERE user_id = :user_id and artist_id = sa.id LIMIT 1) as is_watched,";
     $params[":user_id"] = get_user_id();
 }
-$sql = "SELECT id, query_name, $assoc_check weburl  FROM `Shazam-Artists`";
+$sql = "SELECT id, query_name, $assoc_check weburl  FROM `Shazam-Artists` as sa";
 $where = " WHERE 1=1";
 
 if (!empty($artists)) {

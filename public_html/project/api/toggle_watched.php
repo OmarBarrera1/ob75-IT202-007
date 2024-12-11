@@ -14,13 +14,13 @@ if (isset($_POST["toggleWatched"])) {
             $stmt = $db->prepare("INSERT INTO `UserArtists`(artist_id, user_id)
             VALUES (:artist_id, :user_id)");
             $stmt->execute($params);
-            flash("Added to watch list", "success");
+            flash("Added to favorites", "success");
         } catch (PDOException $e) {
             // use duplicate error as a delete trigger
             if ($e->errorInfo[1] == 1062) {
                 $needsDelete = true;
             } else {
-                flash("Error adding item to watch list", "danger");
+                flash("Error adding item to favorites", "danger");
                 error_log("Error adding watch: " . var_export($e, true));
             }
         }
@@ -28,9 +28,9 @@ if (isset($_POST["toggleWatched"])) {
             try {
                 $stmt = $db->prepare("DELETE FROM `UserArtists` WHERE artist_id = :artist_id AND user_id = :user_id");
                 $stmt->execute($params);
-                flash("Removed from watch list", "success");
+                flash("Removed from favorites", "success");
             } catch (PDOException $e) {
-                flash("Error removing item from watch list", "danger");
+                flash("Error removing item from favorites", "danger");
                 error_log("Error removing watch: " . var_export($e, true));
             }
         }
