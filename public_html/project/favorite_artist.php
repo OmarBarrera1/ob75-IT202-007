@@ -23,6 +23,9 @@ if (!in_array($order, ["asc", "desc"])) {
 
 //UCID - ob75 - 12/10/2024
 $params = [];
+
+$params[":user_id"] = get_user_id();
+
 $assoc_check = "";
 // Append the user_id for a join if the user is logged in
 if (is_logged_in()) {
@@ -31,8 +34,12 @@ if (is_logged_in()) {
     WHERE user_id = :user_id and artist_id = sa.id LIMIT 1) as is_watched,";
     $params[":user_id"] = get_user_id();
 }
-$sql = "SELECT id, query_name, $assoc_check weburl  FROM `Shazam-Artists` as sa";
-$where = " WHERE 1=1";
+
+$sql = "SELECT sa.id, query_name, $assoc_check weburl FROM `Shazam-Artists` sa
+JOIN `UserArtists` ua on sa.id = ua.artist_id";
+$where = " WHERE ua.user_id = :user_id";
+
+
 
 if (!empty($artists)) {
     $where .= " AND query_name like :query_name";
@@ -74,15 +81,20 @@ try {
     error_log("fun happened");
     flash("Failed to fetch");
 }
-/*$total = 0;
-$sql = "SELECT COUNT id FROM `Shazam-Artists` $where";
+
+//UCID - ob75 - 12/10/2024
+$total = 0;
+$sql = "SELECT COUNT(DISTINCT sa.id) as c FROM `Shazam-Artists` as sa
+JOIN `UserArtists` ua on ua.artist_id = sa.id
+$where";
 
 try {
     $db = getDB();
     $stmt = $db->prepare($sql);
-    if (isset($params[":user_id"])) {
+    /*if (isset($params[":user_id"])) {
         unset($params[":user_id"]);
     }
+    */
     $stmt->execute($params);
     $r = $stmt->fetch();
     if ($r) {
@@ -94,7 +106,7 @@ try {
     error_log("Query: $sql");
     error_log("Params: " . var_export($params, true));
 }
-*/
+
 //error_log("Artists: " . var_export($artists, true));
 //error_log("webUrl: " . var_export($webURL, true));
 $ignore_columns = ["id", "created", "modified", "is_api"];
@@ -104,10 +116,15 @@ $table = [
     "ignored_columns" => $ignore_columns,
     "view_url" => get_url("view_artists.php"),
 ];
+
+if (has_role("Admin")) {
+    $table["delete_url"] = get_url("api/clear_watched.php");
+}
 error_log("Artists: " . var_export($results, true));
 ?>
 
 <div class="container-fluid">
+    <h5>Favorite Artists</h5>
     <div>
         <form>
             <div class="row">
@@ -139,6 +156,20 @@ error_log("Artists: " . var_export($results, true));
             </div>
         </form>
     </div>
+    <div class="row">
+        <div class="col">
+            Results <?php echo count($results) . "/" . $total; ?>
+        </div>
+    </div>
+    <!--UCID - ob75 - 12/10/2024 -->
+    <?php if (has_role("Admin")) : ?>
+    <div class="row">
+        <div class="col">
+            <a class="btn btn-warning" href="api/clear_watched.php">Clear List</a>
+
+        </div>
+    </div>
+    <?php endif; ?>
     <?php render_table($table); ?>
 </div>
 
