@@ -58,6 +58,7 @@ if (isset($_GET["limit"]) && !is_nan($_GET["limit"])) {
         $limit = 10;
     }
 }
+//UCID - ob75 - 12/11/2024
 //$sql .= " GROUP BY Shazam-Artists";
 $sql .= $where;
 $sql .= " ORDER BY $column $order";
