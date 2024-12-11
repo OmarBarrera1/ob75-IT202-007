@@ -117,7 +117,6 @@ $table = [
     "view_url" => get_url("view_artists.php"),
 ];
 
-
 error_log("Artists: " . var_export($results, true));
 ?>
 
