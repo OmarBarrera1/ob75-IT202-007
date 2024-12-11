@@ -4,7 +4,7 @@ require_once(__DIR__ . "/../../partials/nav.php");
 
 //search before query
 $artists = se($_GET, "query_name", "", false);
-$webURL= se($_GET, "weburl", "", false);
+$webURL = se($_GET, "weburl", "", false);
 
 $column = se($_GET, "column", "", false);
 $order = se($_GET, "order", "", false);
@@ -21,16 +21,25 @@ if (!in_array($order, ["asc", "desc"])) {
     $order = "asc";
 }
 
-$sql = "SELECT id, query_name, weburl FROM `Shazam-Artists` WHERE 1=1";
+//UCID - ob75 - 12/10/2024
 $params = [];
+$assoc_check = "";
+// Append the user_id for a join if the user is logged in
+if (is_logged_in()) {
+    // return a 1 or 0 based on whether or not this guide is watched by this user
+    $assoc_check = " (SELECT IFNULL(count(1), 0) FROM `UserArtists` WHERE user_id = :user_id and artist_id = artist_id LIMIT 1) as is_watched,";
+    $params[":user_id"] = get_user_id();
+}
+$sql = "SELECT id, query_name, $assoc_check weburl  FROM `Shazam-Artists`";
+$where = " WHERE 1=1";
 
 if (!empty($artists)) {
-    $sql .= " AND query_name like :query_name";
+    $where .= " AND query_name like :query_name";
     $params[":query_name"] = "%$artists%";
 }
 
 if (!empty($webURL)) {
-    $sql .= " AND weburl like :weburl";
+    $where .= " AND weburl like :weburl";
     $params[":weburl"] = "%$webURL%";
 }
 
@@ -42,6 +51,7 @@ if (isset($_GET["limit"]) && !is_nan($_GET["limit"])) {
     }
 }
 //$sql .= " GROUP BY Shazam-Artists";
+$sql .= $where;
 $sql .= " ORDER BY $column $order";
 
 $sql .= " LIMIT $limit";
@@ -52,7 +62,7 @@ try {
     error_log("sql: " . var_export($sql, true));
     error_log("params: " . var_export($params, true));
     $stmt->execute($params); //[":title" => "%$title%", ":type" => $type, ":domain"=>$provider, ":topic"=>$topic]);
-    
+
 
     $r = $stmt->fetchAll();
     if ($r) {
@@ -63,7 +73,27 @@ try {
     error_log("fun happened");
     flash("Failed to fetch");
 }
+/*$total = 0;
+$sql = "SELECT COUNT id FROM `Shazam-Artists` $where";
 
+try {
+    $db = getDB();
+    $stmt = $db->prepare($sql);
+    if (isset($params[":user_id"])) {
+        unset($params[":user_id"]);
+    }
+    $stmt->execute($params);
+    $r = $stmt->fetch();
+    if ($r) {
+        $total = (int)$r["c"]; // called my virtual/temp column "c" for count
+    }
+} catch (PDOException $e) {
+    flash("Error fetching count", "danger");
+    error_log("Error fetching count: " . var_export($e, true));
+    error_log("Query: $sql");
+    error_log("Params: " . var_export($params, true));
+}
+*/
 //error_log("Artists: " . var_export($artists, true));
 //error_log("webUrl: " . var_export($webURL, true));
 $ignore_columns = ["id", "created", "modified", "is_api"];
@@ -71,7 +101,7 @@ $table = [
     "data" => $results,
     //"artists" => "query_name",
     "ignored_columns" => $ignore_columns,
-    "view_url" => get_url("view_artists.php")
+    "view_url" => get_url("view_artists.php"),
 ];
 error_log("Artists: " . var_export($results, true));
 ?>
@@ -96,12 +126,12 @@ error_log("Artists: " . var_export($results, true));
                     <?php render_input(["name" => "order", "label" => "Order", "value" => $order, "type" => "select", "options" => [["asc" => "asc"], ["desc" => "desc"]]]); ?>
                 </div>
                 <div class="col">
-                    <?php render_input(["type" => "number", "name" => "limit", "label" => "Limit", "value" => "10", "include_margin" => false])?>
+                    <?php render_input(["type" => "number", "name" => "limit", "label" => "Limit", "value" => "10", "include_margin" => false]) ?>
                 </div>
                 <div class="col">
                     <?php render_button(["text" => "Search", "type" => "submit"]); ?>
                 </div>
-                
+
                 <div class="col">
                     <a href="?" class="btn btn-secondary">Reset</a>
                 </div>
