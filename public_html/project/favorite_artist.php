@@ -117,9 +117,7 @@ $table = [
     "view_url" => get_url("view_artists.php"),
 ];
 
-if (has_role("Admin")) {
-    $table["delete_url"] = get_url("api/clear_watched.php");
-}
+
 error_log("Artists: " . var_export($results, true));
 ?>
 
