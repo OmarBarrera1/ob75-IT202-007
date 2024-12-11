@@ -116,10 +116,7 @@ $table = [
     "ignored_columns" => $ignore_columns,
     "view_url" => get_url("view_artists.php"),
 ];
-
-if (has_role("Admin")) {
-    $table["delete_url"] = get_url("api/clear_watched.php");
-}
+//got rid of delete button that deletes from record.
 error_log("Artists: " . var_export($results, true));
 ?>
 
