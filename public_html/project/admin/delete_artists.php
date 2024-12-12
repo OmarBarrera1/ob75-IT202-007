@@ -10,6 +10,7 @@ if (!has_role("Admin")) {
 //UCID - ob75 - 12/04/2024
 $id = se($_GET, "id", -1, false);
 
+
 error_log("id: " . var_export($id, true));
 
 if ($id > 0) {
@@ -17,10 +18,12 @@ if ($id > 0) {
     try {
         // if there are relationships, delete from child tables first
         // alternatively, during FOREIGN KEY creation would could have used cascade delete
-        $stmt = $db->prepare("DELETE FROM `Shazam-Artists` where id = :id");
-        error_log("stmt: " . var_export($stmt, true));
-        
-        $stmt->execute([":id" => $id]);
+        $stmt = $db->prepare("DELETE FROM `UserArtists` WHERE artist_id = :artist_id");  
+            $stmt->execute([":artist_id" => $id]);  
+  
+      // Delete from the main table  
+        $stmt = $db->prepare("DELETE FROM `Shazam-Artists` WHERE id = :id");  
+            $stmt->execute([":id" => $id]); 
 
         flash("Delete successful", "success");
 
